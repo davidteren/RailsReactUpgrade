@@ -21,4 +21,7 @@ Ideally it would be great to get this working with
 
 Bonus: 
 
-- Drop rails-react for rails-inertia.
+- Drop rails-react for rails-inertia if it can accomodate the current structure 
+  - Refactoring to fit inetertia's structure will not be easy as we have over 600 tsx and js files in many dirs. 
+
+
