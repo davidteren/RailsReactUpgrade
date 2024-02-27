@@ -1,0 +1,208 @@
+#!/bin/bash
+# SOURCE: https://gist.github.com/waylan/4080362
+# Resources
+#   - https://superuser.com/questions/30087/remove-key-from-known-hosts
+#
+
+# DEBUG enable below
+SSH_FLAGS="-o LogLevel=ERROR -t -t -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A"
+
+if [ "${DDEV_DEBUG:-0}" = 1 ]; then
+  set -x
+  SSH_FLAGS="-t -t -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A"
+fi
+
+SOURCE=${BASH_SOURCE[0]}
+while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+  SOURCE=$(readlink "$SOURCE")
+  [[ $SOURCE != /* ]] && SOURCE=$DIR/$SOURCE # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+
+SCRIPT_DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+
+# == Only add ddev to the path if we are not running in docker
+if [ "${HOME}" = "/home/app" ]; then
+  echo "ERROR: ddev cannot be run within a docker image" > /dev/stderr
+  exit 1
+fi
+
+set -Eeou pipefail
+
+require_env() {
+  var="$1"
+  value=$(eval "echo \${${var}:-}")
+
+  if [ "${value}" = "" ]; then
+    echo "ERROR: Environment variable ${var} is not defined" > /dev/stderr
+    exit 1
+  fi
+}
+
+ensure_dirs() {
+  cd "${DOCKER_ROOT}"
+	mkdir -p mounts/data/db \
+    mounts/data/redis \
+    mounts/data/app/direnv
+}
+
+DOCKER_ROOT="${SCRIPT_DIR}/../docker"
+APP_ROOT=$(readlink -f "${SCRIPT_DIR}/../")
+ENV_FILE="${DOCKER_ROOT}/.env"
+
+if [ ! -e "${ENV_FILE}" ]; then
+  echo "ERROR: Could not load \`${ENV_FILE}\` file. Did you forget to run \`docker/setup\`?" > /dev/stderr
+  exit 1
+else
+  set -o allexport; source "${ENV_FILE}"; set +o allexport
+fi
+
+require_env COMPOSE_PREFIX
+require_env DOCKER_APP_IMAGE
+require_env DEVELOPER_UID
+require_env DEVELOPER_GID
+require_env PUBLIC_KEY_DATA
+
+DOCKER_APP_CONTAINER_NAME="${COMPOSE_PREFIX}-app-1"
+
+ProgName=$(basename $0)
+
+
+sub_help(){
+    echo "Usage: $ProgName <subcommand> [options]"
+    echo "Subcommands:"
+    echo "    init-app        Copies the internal docker app home into your host machine so you can make changes that will be persisted"
+    echo "    app-ip          Prints out the application container's IP"
+    echo "    db-shell        Open a shell within the db container"
+    echo "    ssh             Open a shell / Run a command in the container image (runs from /home/app)"
+    echo "    run             Run a command within /app, but load direnv environment first"
+    echo "    runq            Run a command within /app, but load direnv environment first (Quiet mode)"
+    echo "    up              Boot services in the background using docker compose"
+    echo "    up-sync         Boot services in the foreground unsing docker compose"
+    echo "    ps              Runs docker compose ps"
+    echo "    down            Halt services using docker compose"
+    echo "    reboot          Restart services using docker compose"
+    echo "    link <command>  Link the given command so that it runs within docker instead of on the host"
+    echo ""
+    echo "For help with each subcommand run:"
+    echo "$ProgName <subcommand> -h|--help"
+    echo ""
+}
+
+sshell() {
+  ssh ${SSH_FLAGS} -p "$(app_port)" "app@$(app_ip)" "$@"
+}
+
+sshellpful () {
+  if sshell "$@"; code="$?"; [ "${code}" -eq 255 ]; then
+    echo "ERROR(ddev): Did you remember load your SSH keys by running ssh-add?" > /dev/stderr
+  fi
+
+  exit "$code"
+}
+
+ensure_up() {
+  if [ -z "$(sub_ps -q)" ]; then
+    sub_up
+    # FIXME Is there a more reliable way to do this?
+    sleep 2
+  fi
+}
+
+app_ip() {
+  if [ -n "${DDEV_APP_IP:-}" ]; then
+    echo "${DDEV_APP_IP}"
+  else
+    docker ps | grep "${DOCKER_APP_CONTAINER_NAME}" | cut -f1 -d' ' | xargs docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
+  fi
+}
+
+app_port() {
+  echo "${DDEV_APP_SSH_PORT:-22}"
+}
+
+sub_ps() {
+  docker compose -p "${COMPOSE_PREFIX}" ps "$@"
+}
+
+sub_ssh() {
+  ensure_up
+  sshell "$@"
+}
+
+# Runs the command through direnv
+sub_run() {
+  sshellpful "bash --login -c 'cd /app; DIRENV_LOG_FORMAT=\"\" direnv exec \$(pwd)$(printf " %q" "${@}")'"
+}
+
+# Run command through direnv, but uses SSH in quiet mode
+sub_runq() {
+  sshellpful -q "bash --login -c 'cd /app; DIRENV_LOG_FORMAT=\"\" direnv exec \$(pwd)$(printf " %q" "${@}")'"
+}
+
+sub_up() {
+  ensure_dirs
+  cd "$SCRIPT_DIR/../"
+	docker compose -p "${COMPOSE_PREFIX}" up -d
+}
+
+sub_up-sync() {
+  ensure_dirs
+  cd "$SCRIPT_DIR/../"
+	docker compose -p "${COMPOSE_PREFIX}" up
+}
+
+sub_down() {
+  cd "$SCRIPT_DIR/../"
+	docker compose -p "${COMPOSE_PREFIX}" down
+}
+
+sub_reboot() {
+  sub_down
+  sub_up
+}
+
+sub_init-app() {
+  cd "$SCRIPT_DIR/../"
+	rm -rf mounts/data/app/home
+
+  ensure_dirs
+
+  cd "$SCRIPT_DIR/../"
+	docker run --rm "${DOCKER_APP_IMAGE}" bash -c 'update-app-ids ${DEVELOPER_UID} ${DEVELOPER_GID} && tar -caf - /home/app' | tar -C ./mounts/data/app -x
+}
+
+sub_db-shell() {
+	docker exec -it "${COMPOSE_PREFIX}-db-1" su -l root
+}
+
+sub_link() {
+  linkdir="${APP_ROOT}/.ddev/bin"
+
+  mkdir -p "${linkdir}"
+
+  ln -s "${SCRIPT_DIR}/ddev" "${linkdir}/${1}"
+}
+
+case "${ProgName}" in
+  "ddev")
+    subcommand=${1:-""}
+    case "${subcommand}" in
+        "" | "-h" | "--help")
+            sub_help
+        ;;
+        *)
+            shift
+            sub_${subcommand} "$@"
+            if [ $? = 127 ]; then
+                echo "Error: '${subcommand}' is not a known subcommand." >&2
+                echo "       Run '$ProgName --help' for a list of known subcommands." >&2
+                exit 1
+            fi
+        ;;
+    esac
+    ;;
+  *)
+    ddev runq "${ProgName}" "${@}"
+  ;;
+esac

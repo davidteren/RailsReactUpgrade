@@ -1,0 +1,80 @@
+.hover-underline:hover {
+  text-decoration: underline;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.small-p p {
+  font-size: 1em !important;
+}
+
+.react-datepicker {
+  li {
+    font-size: 0.8rem;
+  }
+}
+
+// https://stackoverflow.com/a/31184284/2490686
+.table td.fit,
+.table th.fit {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.table.table-compact {
+  th.compact,
+  td.compact {
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+  }
+}
+
+.text-muted {
+  color: #58677d !important;
+}
+
+[data-href] {
+  cursor: pointer;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+table.table.table-pad-sm {
+  // TODO How do you combine these two selectors?
+  td:not(:first-child) {
+    padding-left: 0.1rem;
+  }
+
+  th:not(:first-child) {
+    padding-left: 0.1rem;
+  }
+
+  td:not(:last-child) {
+    padding-right: 0.1rem;
+  }
+
+  th:not(:last-child) {
+    padding-right: 0.1rem;
+  }
+}
+
+.horizontal-scroll {
+  overflow-x: scroll !important;
+  overflow-y: hidden !important;
+  white-space: nowrap !important;
+  flex-wrap: nowrap !important;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap !important;
+}
+
+.contracted {
+  .sidebar-text-collapse {
+    visibility: hidden !important;
+  }
+}

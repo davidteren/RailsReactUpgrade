@@ -1,0 +1,10 @@
+// Wrapper for the tooltip content
+
+.tooltip-inner {
+  @include box-shadow($box-shadow);
+}
+
+.ct-area,
+.ct-line {
+  pointer-events: none;
+}

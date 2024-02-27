@@ -1,0 +1,31 @@
+@import "@/stylesheets/application-bootstrap";
+@import "volt-core/stylesheets/volt/volt";
+
+@import "@/stylesheets/utilities";
+@import "@/stylesheets/conversations";
+@import "@/stylesheets/onboarding";
+@import "@/stylesheets/star-rating";
+@import "@/stylesheets/spinners";
+@import "@/stylesheets/react-bootstrap-typeahead-fixes";
+@import "@/stylesheets/react-datepicker";
+@import "@/stylesheets/sidebar-override";
+@import "@/stylesheets/timeline";
+
+@import "@/stylesheets/primereact";
+
+:export {
+  primaryColour: $primary;
+  secondaryColour: $secondary;
+}
+
+.form-floating > label {
+  color: black;
+  font-weight: bold;
+}
+
+// Ensures that the validation error message block consumes space on screen even in the absence of the message. In turn this prevents the inputs from moving when an error does appear
+.bootstrap-feedback-placeholder {
+  @extend .invalid-feedback;
+  color: rgba(0, 0, 0, 0);
+  display: block;
+}

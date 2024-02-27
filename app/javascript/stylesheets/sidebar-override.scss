@@ -1,0 +1,13 @@
+$max-sidebar-width: 220px;
+
+.sidebar {
+  @include media-breakpoint-up(md) {
+    max-width: $max-sidebar-width;
+  }
+}
+
+.content {
+  @include media-breakpoint-up(lg) {
+    margin-left: $max-sidebar-width;
+  }
+}

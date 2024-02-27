@@ -1,0 +1,48 @@
+.p-checkbox .p-checkbox-box {
+  border-radius: 0.25em;
+}
+
+.p-checkbox .p-checkbox-box.p-highlight {
+  border-color: $primary;
+  background: $primary;
+}
+
+.p-checkbox .p-checkbox-box {
+  border-radius: 0.25em;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+  border-color: $input-focus-border-color !important;
+  box-shadow: $input-btn-focus-box-shadow !important;
+}
+
+// Disable hover colours on checkbox
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+  box-shadow: $input-btn-focus-box-shadow;
+  background: $primary !important;
+  border-color: $primary !important;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: $input-btn-focus-box-shadow;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
+  color: #ffffff;
+  background: $primary;
+}
+
+.p-multiselect-panel .p-multiselect-header {
+  padding: 0.25em 1em;
+}
+
+.p-multiselect.p-multiselect-chip .p-multiselect-token {
+  background: $primary;
+}
+
+.p-multiselect:not(.p-disabled).p-focus {
+  border-color: none;
+  box-shadow: none;
+}

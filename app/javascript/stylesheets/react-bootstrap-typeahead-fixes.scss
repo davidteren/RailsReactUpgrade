@@ -1,0 +1,14 @@
+.rbt-close.close {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.rbt-close.close > span {
+  font-size: 1rem; // Usually inherited...
+  color: rgb(0, 123, 255);
+  height: unset;
+}

@@ -1,0 +1,31 @@
+@import "volt-core/stylesheets/volt/volt";
+@import "react-datepicker/src/stylesheets/datepicker.scss";
+
+// $datepicker__selected-color: transparent;
+// $datepicker__selected-color: $primary;
+// $datepicker__highlighted-color: $primary;
+
+@mixin react-datepicker__day--selected-border {
+  border-style: solid;
+  border-color: lighten($datepicker__selected-color, 5%);
+  border-width: 2px;
+}
+
+.react-datepicker__day--selected {
+  @include react-datepicker__day--selected-border;
+
+  background-color: unset;
+  color: black;
+}
+
+.react-datepicker__day--keyboard-selected {
+  @include react-datepicker__day--selected-border;
+  border-style: dashed;
+
+  color: black;
+  background-color: unset;
+}
+
+.react-datepicker__day--highlight-in-port {
+  background: $secondary;
+}

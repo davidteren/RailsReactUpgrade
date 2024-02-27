@@ -1,0 +1,22 @@
+---
+development: &development
+  cache_url: <%= ENV["REDIS_URL"] %>
+  cable_url: <%= ENV["REDIS_URL"] %>
+  sidekiq_url: <%= ENV["REDIS_URL"] %>
+  # sidekiq_url: <%= /redis:\/\/(?<server>[^\/]*)/ =~ ENV["REDIS_URL"]; server %>
+
+profile:
+  <<: *development
+
+test:
+  <<: *development
+
+staging:
+  <<: *development
+
+# Ideally these databases will be completely separate in production
+production:
+  <<: *development
+
+test:
+  <<: *development

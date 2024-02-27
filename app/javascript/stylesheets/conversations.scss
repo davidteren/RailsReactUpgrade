@@ -1,0 +1,35 @@
+.conversation-table {
+  @mixin is-unread {
+    font-weight: bold;
+  }
+
+  .conversation-row {
+    @include is-unread;
+
+    &:hover {
+      @extend .shadow-sm;
+      //cursor: pointer;
+    }
+
+    &.is-read {
+      @extend .text-muted;
+      background: #f9fafb;
+      font-weight: normal;
+    }
+  }
+}
+
+.unread-conversations {
+  position: relative;
+}
+
+.unread-conversations-dot {
+  position: absolute;
+  display: inline-block;
+  top: -5px;
+  right: 6px;
+  height: 7px;
+  width: 7px !important;
+  background-color: #fa5252;
+  border-radius: 50% !important;
+}

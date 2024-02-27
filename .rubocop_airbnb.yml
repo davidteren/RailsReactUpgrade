@@ -1,0 +1,8 @@
+require:
+  - rubocop-airbnb
+
+Airbnb/SimpleModifierConditional:
+  Enabled: false
+
+Airbnb/OptArgParameters:
+  Enabled: false

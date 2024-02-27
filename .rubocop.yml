@@ -1,0 +1,114 @@
+---
+inherit_from:
+  - .rubocop_airbnb.yml
+
+require:
+  - rubocop-rails
+
+AllCops:
+  Exclude:
+    - vendor/bundle/**/*
+    - db/migrate/*
+    - db/schema.rb
+    - bin/*
+    - node_modules/**/*
+    - log/**/*
+    - tmp/**/*
+    - coverage/**/*
+    - public/**/*
+    - .idea/**/*
+    - .git/**/*
+    - .bundle/**/*
+
+Layout/LineLength:
+  # TODO re-enable when we are happy with all the changes...
+  Enabled: false
+  Max: 120
+  AllowHeredoc: true
+  Exclude:
+    - Gemfile
+  Severity: warning
+
+Layout/HashAlignment:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
+
+Layout/EndAlignment:
+  AutoCorrect: true
+  EnforcedStyleAlignWith: variable
+
+Layout/CaseIndentation:
+  EnforcedStyle: end
+
+Layout/DefEndAlignment:
+  AutoCorrect: true
+
+Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
+  AutoCorrect: true
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/HashSyntax:
+  Enabled: true
+  EnforcedStyle: ruby19_no_mixed_keys
+  # TODO lift the below constraint when we're ready for Hashes like {foo:, bar:}
+  EnforcedShorthandSyntax: never
+
+Airbnb/ClassOrModuleDeclaredInWrongFile:
+  Exclude:
+    - lib/generators/*
+    - lib/generators/**/*
+
+Rails/ActiveRecordCallbacksOrder: # (new in 2.7)
+  Enabled: false
+
+Rails/AfterCommitOverride: # (new in 2.8)
+  Enabled: false
+
+Rails/AttributeDefaultBlockValue: # (new in 2.9)
+  Enabled: false
+
+Rails/FindById: # (new in 2.7)
+  Enabled: false
+
+Rails/Inquiry: # (new in 2.7)
+  Enabled: false
+
+Rails/MailerName: # (new in 2.7)
+  Enabled: false
+
+Rails/MatchRoute: # (new in 2.7)
+  Enabled: false
+
+Rails/NegateInclude: # (new in 2.7)
+  Enabled: false
+
+Rails/Pluck: # (new in 2.7)
+  Enabled: false
+
+Rails/PluckInWhere: # (new in 2.7)
+  Enabled: false
+
+Rails/RenderInline: # (new in 2.7)
+  Enabled: false
+
+Rails/RenderPlainText: # (new in 2.7)
+  Enabled: false
+
+Rails/ShortI18n: # (new in 2.7)
+  Enabled: false
+
+Rails/SquishedSQLHeredocs: # (new in 2.8)
+  Enabled: false
+
+Rails/WhereEquals: # (new in 2.9)
+  Enabled: false
+
+Rails/WhereExists: # (new in 2.7)
+  Enabled: false
+
+Rails/WhereNot: # (new in 2.8)
+  Enabled: false
