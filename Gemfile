@@ -11,7 +11,7 @@ gem "puma", "~> 5.6.5"
 
 gem "sass-rails", ">= 6"
 
-gem "webpacker", "~> 5.0"
+gem 'vite_rails'
 
 gem "jbuilder", "~> 2.7"
 
@@ -83,3 +83,5 @@ end
 group :staging, :development, :profile do
   gem "ruby-prof"
 end
+
+gem "foreman", "~> 0.87.2"

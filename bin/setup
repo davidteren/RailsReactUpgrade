@@ -31,9 +31,9 @@ FileUtils.chdir APP_ROOT do
   puts "\n== Removing old logs and tempfiles =="
   system! "bin/rails log:clear tmp:clear"
 
-  puts "\n== Precompile Assets =="
-  puts "* Remove NODE_OPTIONS=--openssl-legacy-provider when NodeJS is upgraded"
-  system! "NODE_OPTIONS=--openssl-legacy-provider bin/rails assets:precompile"
+  # puts "\n== Precompile Assets =="
+  # puts "* Remove NODE_OPTIONS=--openssl-legacy-provider when NodeJS is upgraded"
+  # system! "NODE_OPTIONS=--openssl-legacy-provider bin/rails assets:precompile"
 
   puts "\n== Restarting application server =="
   system! "bin/rails restart"

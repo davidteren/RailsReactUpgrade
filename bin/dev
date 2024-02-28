@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Run Vite and Rails using Foreman
+foreman start -f Procfile.dev

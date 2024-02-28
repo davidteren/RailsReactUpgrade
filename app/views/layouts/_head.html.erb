@@ -1,10 +1,13 @@
 <%= csrf_meta_tags %>
 <%= csp_meta_tag %>
 
-<%= stylesheet_pack_tag 'application', media: 'all' %>
-<%= javascript_pack_tag 'application' %>
-<%= javascript_pack_tag 'volt' %>
-
+<%#= stylesheet_pack_tag 'application', media: 'all' %>
+<%#= javascript_pack_tag 'application' %>
+<%#= javascript_pack_tag 'volt' %>
+<%= vite_client_tag %>
+<%= vite_javascript_tag 'application' %>
+<%= vite_javascript_tag 'volt' %>
+<%= vite_stylesheet_tag 'application.scss' %>
 
 <script crossorigin="anonymous" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" src="https://code.jquery.com/jquery-3.6.0.min.js">
 

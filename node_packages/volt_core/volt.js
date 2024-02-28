@@ -2,9 +2,12 @@
 Volt document interaction javascript. The only changes currently are the following module imports
 */
 
-const bootstrap = require("bootstrap")
-const Swal = require("sweetalert2")
-const SmoothScroll = require("smooth-scroll")
+// const bootstrap = require("bootstrap")
+// const Swal = require("sweetalert2")
+// const SmoothScroll = require("smooth-scroll")
+import * as bootstrap from "bootstrap";
+import Swal from "sweetalert2"
+import SmoothScroll from "smooth-scroll"
 
 /*
 

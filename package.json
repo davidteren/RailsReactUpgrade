@@ -1,8 +1,7 @@
 {
   "name": "",
   "private": true,
-  "scripts": {
-  },
+  "scripts": {},
   "workspaces": [
     "node_packages/volt_core"
   ],
@@ -77,7 +76,7 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "^3.0.3",
     "redux-devtools": "^3.7.0",
-    "webpack": "^4.0.0",
-    "webpack-dev-server": "^3.11.3"
+    "vite": "^5.1.4",
+    "vite-plugin-ruby": "^5.0.0"
   }
 }

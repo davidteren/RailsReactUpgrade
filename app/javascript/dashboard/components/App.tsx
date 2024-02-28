@@ -1,7 +1,7 @@
 import React from "react"
 import { Container, Row, Col, Card, Alert} from "react-bootstrap"
 import CustomForm  from  "./DashboardForm"
-import { App } from "@/components/ReactLoader"
+// import { App } from "@/components/ReactLoader"
 
 const Dashboard = () => {
   // Hardcoded data for the list widget
