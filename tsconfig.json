@@ -5,6 +5,7 @@
   "ecmaVersion": 11,
   "sourceType": "module",
   "compilerOptions": {
+    "typeRoots": ["node_modules/@types", "javascript/types"],
     "allowJs": true,
     "declaration": false,
     "emitDecoratorMetadata": true,
@@ -21,8 +22,9 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": "app/javascript",
     "paths": {
-      "@/*": ["*"]
-    }
+      "@/*": ["*"],
+      "@assets/*": ["app/assets/*"]
+    },
   },
   "exclude": [
     "**/*.spec.ts",
