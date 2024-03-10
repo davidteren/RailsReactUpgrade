@@ -1,6 +1,7 @@
 {
   "name": "",
   "private": true,
+  "type": "module",
   "scripts": {},
   "workspaces": [
     "node_packages/volt_core"
