@@ -2,7 +2,9 @@
   "name": "",
   "private": true,
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "visualize-bundle": "vite-bundle-visualizer"
+  },
   "workspaces": [
     "node_packages/volt_core"
   ],
