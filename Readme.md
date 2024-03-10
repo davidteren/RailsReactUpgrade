@@ -24,4 +24,13 @@ Bonus:
 - Drop rails-react for rails-inertia if it can accomodate the current structure 
   - Refactoring to fit inetertia's structure will not be easy as we have over 600 tsx and js files in many dirs. 
 
+Bundle Visualizer:
 
+You can analyze vite's bundle with
+[vite-bundle-visualizer](https://github.com/KusStar/vite-bundle-visualizer) by
+running script `yarn run visualize-bundle`
+
+Quick bundle visualizer tips:
+- Bigger squares represent bigger dependencies. 
+- Named imports `import {Button} from 'library'` will treeshake/reduce bundle size.
+- Recommended options `vite-bundle-visualizer -t sunburst`

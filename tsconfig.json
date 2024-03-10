@@ -5,6 +5,7 @@
   "ecmaVersion": 11,
   "sourceType": "module",
   "compilerOptions": {
+    "typeRoots": ["node_modules/@types", "javascript/types"],
     "allowJs": true,
     "declaration": false,
     "emitDecoratorMetadata": true,
@@ -15,14 +16,15 @@
     "module": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
-    "target": "es5",
+    "target": "ESNext",
     "jsx": "react",
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "app/javascript",
     "paths": {
-      "@/*": ["*"]
-    }
+      "@/*": ["*"],
+      "@assets/*": ["app/assets/*"]
+    },
   },
   "exclude": [
     "**/*.spec.ts",

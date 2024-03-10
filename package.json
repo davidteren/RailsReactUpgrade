@@ -1,7 +1,9 @@
 {
   "name": "",
   "private": true,
+  "type": "module",
   "scripts": {
+    "visualize-bundle": "vite-bundle-visualizer"
   },
   "workspaces": [
     "node_packages/volt_core"
@@ -13,8 +15,8 @@
     "@rails/actioncable": "^7.0.0",
     "@rails/activestorage": "^7.0.0",
     "@rails/ujs": "^7.0.0",
-    "@rails/webpacker": "^5.2.1",
     "@reduxjs/toolkit": "^1.8.3",
+    "@types/node": "^20.11.24",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "autoprefixer": "^9",
@@ -28,8 +30,12 @@
     "lodash": "^4.17.21",
     "mjml": "^4.13.0",
     "notyf": "^3.9.0",
+    "path": "^0.12.7",
     "pluralize": "^8.0.0",
     "postcss": "^7.0.36",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^16.0.1",
+    "postcss-preset-env": "^9.4.0",
     "primeicons": "^5.0.0",
     "primereact": "^8.3.0",
     "prop-types": "^15.7.2",
@@ -77,7 +83,8 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "^3.0.3",
     "redux-devtools": "^3.7.0",
-    "webpack": "^4.0.0",
-    "webpack-dev-server": "^3.11.3"
+    "vite": "^5.1.4",
+    "vite-bundle-visualizer": "^1.0.1",
+    "vite-plugin-ruby": "^5.0.0"
   }
 }

@@ -1,7 +1,10 @@
 import React from "react"
 import { Container, Row, Col, Card, Alert} from "react-bootstrap"
 import CustomForm  from  "./DashboardForm"
-import { App } from "@/components/ReactLoader"
+// import { App } from "@/components/ReactLoader"
+
+import image1 from "@assets/images/image_1.jpeg"
+import image2 from "@assets/images/image_2.png"
 
 const Dashboard = () => {
   // Hardcoded data for the list widget
@@ -56,6 +59,9 @@ const Dashboard = () => {
       <Alert variant="info">
         A simple info alert — check it out!
       </Alert>
+
+      <img src={image1} />
+      <img src={image2} />
     </Container>
   )
 }
