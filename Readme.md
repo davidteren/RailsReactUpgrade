@@ -28,7 +28,7 @@ Bundle Visualizer:
 
 You can analyze vite's bundle with
 [vite-bundle-visualizer](https://github.com/KusStar/vite-bundle-visualizer) by
-running script `yarn run analyze-bundle`
+running script `yarn run visualize-bundle`
 
 Quick bundle visualizer tips:
 - Bigger squares represent bigger dependencies. 
